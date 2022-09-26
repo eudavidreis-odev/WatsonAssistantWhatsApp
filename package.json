@@ -1,0 +1,26 @@
+{
+  "name": "mr.bot",
+  "version": "1.0.0",
+  "description": "Chatbot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EuDavidReis-ODev/Mr.Bot.git"
+  },
+  "keywords": [
+    "Chatbot"
+  ],
+  "author": "Mr.Dev (David Reis)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EuDavidReis-ODev/Mr.Bot/issues"
+  },
+  "homepage": "https://github.com/EuDavidReis-ODev/Mr.Bot#readme",
+  "dependencies": {
+    "@open-wa/wa-automate": "^4.47.0",
+    "ibm-watson": "^7.1.1"
+  }
+}

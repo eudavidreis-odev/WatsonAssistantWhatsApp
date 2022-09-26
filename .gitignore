@@ -1,0 +1,8 @@
+node_modules
+_IGNORE_Mr.Darwin
+
+# managed by open-wa
+**.data.json
+**.node-persist**
+**_IGNORE_**
+# end managed by open-wa
