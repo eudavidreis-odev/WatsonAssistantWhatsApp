@@ -23,11 +23,6 @@ const assistant = new AssistantV2({
   serviceUrl: '[URI DO WATSON ASSISTANT]',
 });
 
-
-var result;
-var sessionID;
-
-
 //====================================================================
 
 
