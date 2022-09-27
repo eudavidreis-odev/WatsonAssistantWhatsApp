@@ -1,6 +1,12 @@
+[TOC]
+
+
+
 # Chatbot WhatsApp/Watson Assistant
 
 Essa é uma integração do [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant) (o chatbot da IBM) com o WhatsApp, integração esta, que é feita em [NodeJS](https://nodejs.org/pt-br/) e utiliza do pacote [NPM Wa Automate NodeJS](https://openwa.dev), cujo código fonte pode ser encontrado em [Wa Automate Github](https://github.com/open-wa/wa-automate-nodejs).
+
+------
 
 
 
@@ -12,7 +18,8 @@ Essa é uma integração do [Watson Assistant](https://www.ibm.com/br-pt/product
 
 - Wa Automate NodeJS.
 
-  
+
+------
 
 ## Preparando o ambiente
 
@@ -39,8 +46,11 @@ Caso seja necessário instalar os pacotes separadamente use:
     npm i --save ibm-watson@^7.1.1
 
 ### Configurando Watson Assistant
-Agora precisamos configurar o [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant), passando as credenciais do seu chatbot. Você pode achar suas credenciais nesse [link]
-	Substitua os campos com suas credências conforme mostrado a baixo:
+Agora precisamos configurar o [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant), passando as credenciais do seu chatbot. Você pode achar suas credenciais nesse [link](https://cloud.ibm.com/services/conversation/crn%3Av1%3Abluemix%3Apublic%3Aconversation%3Aus-south%3Aa%2F7eb28963c03a40d688f89d2afcecf24a%3Ad6e9677b-5d78-4947-9488-b1e825f6851f%3A%3A?paneId=manage).
+
+![](./tutorial/credentials.png)
+
+Substitua os campos com suas credências conforme mostrado a baixo:
 
     /*Use suas credenciais aqui.*/
     const assistantID = '[ASSISTANT ID]';
@@ -52,7 +62,12 @@ Agora precisamos configurar o [Watson Assistant](https://www.ibm.com/br-pt/produ
     serviceUrl: '[URI DO WATSON ASSISTANT]',
     });
 
- ### Iniciando o Chatbot
+------
+
+
+
+ ## Iniciando o Chatbot
+
 Agora podemos iniciar o chatbot e fazer o login no [WhatsApp](https://www.whatsapp.com/?lang=pt_br), permitindo que o [Wa Automate](https://www.npmjs.com/package/@open-wa/wa-automate), tenha acesso as mensagens recebidas.
 Execute o seguinte comando (na pasta do seu projeto) para iniciar o servidor:
 
