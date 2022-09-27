@@ -23,6 +23,7 @@ Use o comando "node --version" para verificar se o node foi instalado corretamen
     node --version
 
 Você deve receber algo como:
+
 ![](./tutorial/node-version.png)
 
 ### Instalando dependências
@@ -62,6 +63,6 @@ Nesse momento o servidor irá iniciar sua configuração, o que deve demorar ape
 
  Após escanear o QR, havendo sucesso na conexão, o [Wa Automate](https://www.npmjs.com/package/@open-wa/wa-automate) irá carregar mais algumas configurações, e o bot já estará online.
 
-![](/home/megatron/Imagens/login-feito.png)
+![](./tutorial/login-feito.png)
 
 E pronto! :smile:
