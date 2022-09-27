@@ -48,6 +48,14 @@ Caso seja necessário instalar os pacotes separadamente use:
 ### Configurando Watson Assistant
 Agora precisamos configurar o [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant), passando as credenciais do seu chatbot. Você pode achar suas credenciais nesse [link](https://cloud.ibm.com/services/conversation/crn%3Av1%3Abluemix%3Apublic%3Aconversation%3Aus-south%3Aa%2F7eb28963c03a40d688f89d2afcecf24a%3Ad6e9677b-5d78-4947-9488-b1e825f6851f%3A%3A?paneId=manage).
 
+Assistant ID:
+
+![](./tutorial/assistantID.png)
+
+
+
+API KEY e Service URL:
+
 ![](./tutorial/credentials.png)
 
 Substitua os campos com suas credências conforme mostrado a baixo:
