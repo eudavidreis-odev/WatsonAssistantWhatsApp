@@ -21,21 +21,21 @@ Essa é uma integração do [Watson Assistant](https://www.ibm.com/br-pt/product
 Use o comando "node --version" para verificar se o node foi instalado corretamente.
 
     node --version
-    
+
 Você deve receber algo como:
-[IMG]
+![](./tutorial/node-version.png)
 
 ### Instalando dependências
-Com o [NodeJS](https://nodejs.org/pt-br/) corretamente instalado na sua máquina, podemos instalar as dependências. Para realizar a conexão com o [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant) usaremos o pacote [WATSON ASSISTANT PACOTE], e usaremos o [Wa Automate NodeJS](https://www.npmjs.com/package/@open-wa/wa-automate) para controlar as mensagens recebidas no [WhatsApp](https://www.whatsapp.com/?lang=pt_br). 
+Com o [NodeJS](https://nodejs.org/pt-br/) corretamente instalado na sua máquina, podemos instalar as dependências. Para realizar a conexão com o [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant) usaremos o pacote [Watson NPM](https://www.npmjs.com/package/ibm-watson), e usaremos o [Wa Automate NodeJS](https://www.npmjs.com/package/@open-wa/wa-automate) para controlar as mensagens recebidas no [WhatsApp](https://www.whatsapp.com/?lang=pt_br). 
  Para instalar todas as dependências necessárias, execute o comando:
- 
+
 
     npm install
 
 Caso seja necessário instalar os pacotes separadamente use:
 
     npm i --save @open-wa/wa-automate@latest
-    npm i --save WATSON
+    npm i --save ibm-watson@^7.1.1
 
 ### Configurando Watson Assistant
 Agora precisamos configurar o [Watson Assistant](https://www.ibm.com/br-pt/products/watson-assistant), passando as credenciais do seu chatbot. Você pode achar suas credenciais nesse [link]
@@ -50,7 +50,7 @@ Agora precisamos configurar o [Watson Assistant](https://www.ibm.com/br-pt/produ
     }),
     serviceUrl: '[URI DO WATSON ASSISTANT]',
     });
-    
+
  ### Iniciando o Chatbot
 Agora podemos iniciar o chatbot e fazer o login no [WhatsApp](https://www.whatsapp.com/?lang=pt_br), permitindo que o [Wa Automate](https://www.npmjs.com/package/@open-wa/wa-automate), tenha acesso as mensagens recebidas.
 Execute o seguinte comando (na pasta do seu projeto) para iniciar o servidor:
@@ -58,8 +58,10 @@ Execute o seguinte comando (na pasta do seu projeto) para iniciar o servidor:
     node index.js
 Nesse momento o servidor irá iniciar sua configuração, o que deve demorar apenas alguns segundos, e será exibido o QR Code para login no [WhatsApp](https://www.whatsapp.com/?lang=pt_br).
 
-[IMG]
+![](./tutorial/qr-exemplo.png)
 
  Após escanear o QR, havendo sucesso na conexão, o [Wa Automate](https://www.npmjs.com/package/@open-wa/wa-automate) irá carregar mais algumas configurações, e o bot já estará online.
 
-[IMG]
+![](/home/megatron/Imagens/login-feito.png)
+
+E pronto! :smile:
