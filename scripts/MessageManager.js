@@ -1,28 +1,31 @@
+const log = require('./Logger')
 
+/**Função que envia a mensagem de resposta. */
 function clientSendTxtMsg(client,from , msg){
     client
     .sendText(from, msg)
     .then((result) => {
-      //console.log('Result: ', result); //return object success
-      console.log("Mensagem enviada com sucesso para o N"+from+".")
+      log.dateLog("Mensagem enviada com sucesso para o N"+from+".")
     })
     .catch((erro) => {
-      console.error('Error when sending: ', erro); //return object error
+      log.error('Error when sending: ', erro);
     });
 }
 
+/**Função que monta a String da mensagem. */
 function makeMsg(res){
     var result = res.result.output.generic;
     var msg = "";
 
+    /**Verifica as mensagens, e os tipos (texto e opção) de mensagens. */
     for(var key in result ){
 
       if(result[key].response_type === "text"){
-        console.log(result[key].text);
+        log.dateLog(result[key].text);
         msg = msg+result[key].text+" ";
 
       }else if(result[key].response_type === "option"){
-        console.log(result[key].title)
+        log.dateLog(result[key].title)
         msg = msg+"*"+result[key].title+"* \n";
 
         var options = result[key].options;
@@ -31,7 +34,7 @@ function makeMsg(res){
                       
 
         }
-      }else if(result[key].response_type === "image") 
+      }
       msg = msg+" \n "            
     }
 

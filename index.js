@@ -1,18 +1,19 @@
 const wa = require('@open-wa/wa-automate');
-var sessManager = require('./scripts/SessionManager');
-const msgManager = require('./scripts/MessageManager')
+const AssistantV2 = require('ibm-watson/assistant/v2');
+const { IamAuthenticator } = require('ibm-watson/auth');
+
+const log = require('./scripts/Logger');
+const sessManager = require('./scripts/SessionManager');
+const msgManager = require('./scripts/MessageManager');
 
 const TWENTY_MINUTES = 1200000;
 
-dateLog('Started index.js')
-
-//=======================IBM WATSON
-const AssistantV2 = require('ibm-watson/assistant/v2');
-const { IamAuthenticator } = require('ibm-watson/auth');
-const clientSendTxtMsg = require('./scripts/MessageManager');
+log.dateLog('Started index.js');
 
 
-/*Use suas credenciais aqui.*/ 
+
+/**Configuração Watson.
+ * Use suas credenciais aqui. */ 
 const assistantID = '[ASSISTANT ID]';
 
 const assistant = new AssistantV2({
@@ -23,13 +24,11 @@ const assistant = new AssistantV2({
   serviceUrl: '[URI DO WATSON ASSISTANT]',
 });
 
-//====================================================================
-
-
+/**Inicia o cliente Wa Automate. */ 
 wa.create({
   sessionId: "My Assistant",
-  multiDevice: true, //required to enable multiDevice support
-  authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
+  multiDevice: true, //ativa o suporte a multidevices
+  authTimeout: 60,
   blockCrashLogs: true,
   disableSpins: true,
   headless: true,
@@ -37,27 +36,40 @@ wa.create({
   logConsole: false,
   popup: false,
   chromiumArgs: [
-    '--no-sandbox',
+    /*
+    Argumentos passados ao Chromium do Wa Automate NodeJS (Puppeter) para aumentar a compatibilidade com a Heroku.
+    */
+   '--no-sandbox',
     '--disable-setuid-sandbox'
   ],
-  qrTimeout: 0, //0 means it will wait forever for you to scan the qr code
-}).then(client => start(client));
+  qrTimeout: 0, //0 Faz o QR esperar infinitamente pelo scan.
+}).then(client => start(client)).catch(err=>{
+  log.dateError(err);
+});
 
+
+/**Função executada após o Wa client ser iniciado. */
 function start(_client) {
     var client = _client;  
     
-
+    /**Ao receber uma mensagem, o client executa uma função. */
     client.onMessage(async (message) => {
 
+      /**Variavel que guardará a sessão do Watson Assistant. */
       var session;
 
+      /**Checa se já existe uma sessão ativa para esse numero. */
       if(sessManager.checkSessionExist(message.from)){
+        /**Se sim, busca a sessão com base no telefone.*/
         session = sessManager.getSessionByPhone(message.from);
       }else{
+        /**Se não, inicia uma nova sessão com o Watson. */
         session = await initIBMSession();
+        /**E adiciona essa sessão para fins de controle. */
         sessManager.addSession(message.from,session);
       }
 
+    /**O assistant IBM envia a mensage */  
     assistant.message({
         assistantId: assistantID,
         sessionId: session,
@@ -67,15 +79,15 @@ function start(_client) {
             }
         })
         .then(res => {
-            //console.log(JSON.stringify(res.result, null, 2));  
-            
-            let msg = msgManager.makeMsg(res);
+          /**Monta a string da mensagem. */  
+          let msg = msgManager.makeMsg(res);
 
-            msgManager.clientSendTxtMsg(client,message.from,msg);
-            
-                })
+          /**Envia a mensagem de resposta. */
+          msgManager.clientSendTxtMsg(client,message.from,msg);
+        
+        })
         .catch(err => {
-          dateError(err);
+          log.dateError(err);
         })
     
     });
@@ -83,6 +95,7 @@ function start(_client) {
     
 }
 
+/**Inicia uma sessão do Watson Assistant, retorna o sessionID do Watson. */
 async function initIBMSession(){
     var session_res = null;
     await assistant.createSession({
@@ -90,21 +103,12 @@ async function initIBMSession(){
       })
       .then(res => {
   
-        dateLog("Session IBM ID = "+res.result.session_id);
+        log.dateLog("Session IBM ID = "+res.result.session_id);
         session_res = res.result.session_id; 
       })
       .catch(err => {
-        dateError(err);
+        log.dateError(err);
       });
   
       return session_res;
   }
-  
-  function dateLog(text) {
-      console.log(new Date(), ' - ', text)
-  }
-  
-  function dateError(text){
-    console.error(new Date(), ' - ERROR- ', text)
-  }
-  

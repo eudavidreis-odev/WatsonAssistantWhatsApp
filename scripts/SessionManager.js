@@ -1,34 +1,41 @@
+const log = require('./Logger')
 
+/**Array para controle de sessões ativas. */
 var session = []
 
+/**Adiciona uma nova sessão, recebe o numero de quem enviou a mensagem, e a sessão do Watson 
+ * Assistant.
+ * Também adiciona um cronometro para excluir essa session, nesse caso o Watson Assistant 
+ * mantém a sessão ativa durante 5 minutos (140000 milisegundos). Verifique o plano do seu 
+ * serviço para saber o tempo coreto de seu Assistant.
+ */
 function addSession(phoneNumber , _session){
     
-    session.push({number:phoneNumber,
-    session:_session})
+    session.push(
+        {
+            number:phoneNumber,
+            session:_session
+        }
+    )
 
-    console.log("Nova sessão adicionada Cel:"+phoneNumber+" ID:"+_session)
+    log.dateLog("Nova sessão adicionada Cel:"+phoneNumber+" ID:"+_session)
 
     setTimeout(()=>{
-        console.log("Eliminando Cel:"+phoneNumber+" Session:"+_session)
+        log.dateLog("Eliminando Cel:"+phoneNumber+" Session:"+_session)
         resetSessionWithPhone(phoneNumber);
-        console.log("Session terminada.")
+        log.dateLog("Session terminada.")
     }, 140000);
 }
 
-
-function resetSessionWithPhone(phone_number,_session){
-    console.log("Numero de sessoẽs ativas:"+session.length)
-    const keys = session.keys()
-    const values = session.values()
-
-    var index = session.indexOf(_session)
-    var value = session.at(index);
-
+/**Exclui uma sessão do Watson com base no número de telefone. */
+function resetSessionWithPhone(phone_number){
+    log.dateLog("Numero de sessoẽs ativas:"+session.length)
     session = session.filter(el=>el.number!==phone_number)
-    console.log("Numero de sessoẽs ativas após:"+session.length)
+    log.dateLog("Numero de sessoẽs ativas após:"+session.length)
 
 }
 
+/**Retorna as sessões do Watson com base no número de telefone. */
 function getSessionByPhone(phone_number){
     var tempArr = session.filter(el =>el.number === phone_number);
 
@@ -36,8 +43,9 @@ function getSessionByPhone(phone_number){
 
 }
 
+/**Checa se existe uma sessão ativa para esse número. */
 function checkSessionExist(phone_number){
-    console.log("Check if...")
+    log.dateLog("Check if...")
     
     var tempArr = session.filter(el =>el.number === phone_number)
     
