@@ -50,13 +50,13 @@ wa.create({
 
 /**Função executada após o Wa client ser iniciado. */
 function start(_client) {
-    var client = _client;  
+    let client = _client;  
     
     /**Ao receber uma mensagem, o client executa uma função. */
     client.onMessage(async (message) => {
 
-      /**Variavel que guardará a sessão do Watson Assistant. */
-      var session;
+      /**Variavel que guardará (neste escopo) a sessão do Watson Assistant. */
+      let session;
 
       /**Checa se já existe uma sessão ativa para esse numero. */
       if(sessManager.checkSessionExist(message.from)){
@@ -69,7 +69,7 @@ function start(_client) {
         sessManager.addSession(message.from,session);
       }
 
-    /**O assistant IBM envia a mensage */  
+    /**Envia a mensagem para o Watson analisar. */  
     assistant.message({
         assistantId: assistantID,
         sessionId: session,
@@ -95,14 +95,13 @@ function start(_client) {
     
 }
 
-/**Inicia uma sessão do Watson Assistant, retorna o sessionID do Watson. */
+/**Inicia uma sessão do Watson Assistant e retorna o sessionID. */
 async function initIBMSession(){
-    var session_res = null;
+    let session_res = null;
     await assistant.createSession({
       assistantId: assistantID
       })
       .then(res => {
-  
         log.dateLog("Session IBM ID = "+res.result.session_id);
         session_res = res.result.session_id; 
       })

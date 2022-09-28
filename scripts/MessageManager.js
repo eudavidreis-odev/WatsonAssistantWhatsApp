@@ -14,11 +14,11 @@ function clientSendTxtMsg(client,from , msg){
 
 /**Função que monta a String da mensagem. */
 function makeMsg(res){
-    var result = res.result.output.generic;
-    var msg = "";
+    let result = res.result.output.generic;
+    let msg = "";
 
     /**Verifica as mensagens, e os tipos (texto e opção) de mensagens. */
-    for(var key in result ){
+    for(let key in result ){
 
       if(result[key].response_type === "text"){
         log.dateLog(result[key].text);
@@ -28,8 +28,8 @@ function makeMsg(res){
         log.dateLog(result[key].title)
         msg = msg+"*"+result[key].title+"* \n";
 
-        var options = result[key].options;
-        for(var key in options){
+        let options = result[key].options;
+        for(let key in options){
           msg = msg+"- "+options[key].label+"\n";
                       
 

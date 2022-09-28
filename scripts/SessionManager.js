@@ -16,29 +16,27 @@ function addSession(phoneNumber , _session){
             number:phoneNumber,
             session:_session
         }
-    )
+    );
 
-    log.dateLog("Nova sessão adicionada Cel:"+phoneNumber+" ID:"+_session)
+    log.dateLog("Nova sessão adicionada Cel:"+phoneNumber+" ID:"+_session);
 
     setTimeout(()=>{
-        log.dateLog("Eliminando Cel:"+phoneNumber+" Session:"+_session)
+        log.dateLog("Eliminando Cel:"+phoneNumber+" Session:"+_session);
         resetSessionWithPhone(phoneNumber);
-        log.dateLog("Session terminada.")
+        log.dateLog("Session terminada.");
     }, 140000);
 }
 
 /**Exclui uma sessão do Watson com base no número de telefone. */
 function resetSessionWithPhone(phone_number){
-    log.dateLog("Numero de sessoẽs ativas:"+session.length)
-    session = session.filter(el=>el.number!==phone_number)
-    log.dateLog("Numero de sessoẽs ativas após:"+session.length)
-
+    log.dateLog("Numero de sessoẽs ativas:"+session.length);
+    session = session.filter(el=>el.number!==phone_number);
+    log.dateLog("Numero de sessoẽs ativas após:"+session.length);
 }
 
 /**Retorna as sessões do Watson com base no número de telefone. */
 function getSessionByPhone(phone_number){
-    var tempArr = session.filter(el =>el.number === phone_number);
-
+    let tempArr = session.filter(el =>el.number === phone_number);
     return tempArr.at(0).session;
 
 }
@@ -46,9 +44,7 @@ function getSessionByPhone(phone_number){
 /**Checa se existe uma sessão ativa para esse número. */
 function checkSessionExist(phone_number){
     log.dateLog("Check if...")
-    
-    var tempArr = session.filter(el =>el.number === phone_number)
-    
+    let tempArr = session.filter(el =>el.number === phone_number)
     return tempArr.length>0;
 
 }
